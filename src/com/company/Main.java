@@ -28,11 +28,13 @@ public class Main {
         String str = new String("Ссылочный тип"); // str содержит адрес ячейки памяти объекта String
         InnerClass innerObject = new InnerClass(i); // Абстрактный тип данный с методами и полями.
         int[] arr = {1,2,3,4,5,6,7,8,9};
+        long time = System.nanoTime();
         for (int j = 0; j < arr.length; j++) { //Перебор элементов
             if(arr[j] == innerObject.getField()) {
                 System.out.println("Элемент найден в массиве с индексом "+ j);
             }
         }
+        System.out.println("Прошло времени: " + (System.nanoTime() - time));
 
     }
     static class InnerClass {
