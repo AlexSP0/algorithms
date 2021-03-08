@@ -44,7 +44,7 @@ public class Main {
         arr21.randomizeArray(11);
         System.out.println("********************************************************** Задание 2.1 ****************************************");
         System.out.println(Arrays.toString(arr21.getArray()));
-        System.out.println("Время сортировки массива составило: " + arr22.arraySort());
+        System.out.println("Время сортировки массива составило: " + arr21.arraySort());
         System.out.println(Arrays.toString(arr21.getArray()));
 
 
