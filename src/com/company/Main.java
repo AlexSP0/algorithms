@@ -1,75 +1,131 @@
 package com.company;
-//Задание 2.1
-//        На основе программного кода из домашнего задания №1 реализуйте массив на основе существующих примитивных или ссылочных типов данных.
-//        Выполните обращение к массиву и базовые операции класса Arrays.
+//Задание 3.1
+//        На основе массива из домашнего задания 2.1 реализуйте простой список и коллекцию.
+//        Оцените время выполнения преобразования.
+//Задание 3.2
+//        На основе списка из задания 3.1 реализуйте основные методы добавления, удаления и получения объекта или элемента из списка.
 //        Оценить выполненные методы с помощью базового класса System.nanoTime().
-//        Задание 2.2
-//        На основе написанного кода в задании 2.1 реализуйте линейный и двоичный поиск.
-//        Оценить алгоритмы линейного и двоичного поиска с помощью базового класса System.nanoTime(), при необходимости расширьте уже существующий массив данных.
-//        Задание 2.3
-//
-//        Создайте массив размером 400 элементов.
-//        Выполните сортировку с помощью метода sort().
-//        Оцените сортировку с помощью базового класса System.nanoTime().
-//        Задание 2.4
-//        На основе существующего массива данных из задания 2.3 реализуйте алгоритм сортировки пузырьком.
-//        Оцените сортировку с помощью базового класса System.nanoTime().
-//        Сравните время выполнения алгоритмы сортировки методом sort() из задания 2.1 и сортировку пузырьком.
-//        Задание 2.5
-//        На основе массива данных из задания 2.3 реализуйте алгоритм сортировки методом выбора.
-//        Оцените сортировку с помощью базового класса System.nanoTime().
-//        Сравните с временем выполнения алгоритмов сортировки из прошлых заданий 2.3 и 2.4.
-//        Задание 2.6
-//        На основе массива данных из задания 2.3 реализуйте алгоритм сортировки методом вставки.
-//        Оцените сортировку с помощью базового класса System.nanoTime().
-//        Сравните с временем выполнения алгоритмов сортировки из прошлых заданий 2.3, 2.4 и 2.5.
+//Задание 3.3
+//        Реализуйте простой односвязный список и его базовые методы.
+//Задание 3.4
+//        На основе списка из задания 3.1 реализуйте простой двусторонний список и его базовые методы.
+//        Реализуйте список заполненный объектами из вашего класса из задания 1.3
+//Задание 3.5
+//        Реализуйте итератор на основе связанных списков из задания 3.4 и выполните базовые операции итератора.
+//        Оцените время выполнения операций с помощью базового метода System.nanoTime()
 
-
+import java.lang.annotation.Target;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class Main {
 
     public static void main(String[] args) {
-        TrainingIntArray arr = new TrainingIntArray(400); //создаем массив
-        arr.randomizeArray(101); //заполняем случайными числами
-        TrainingIntArray arr21 = new TrainingIntArray(10); //небольшой массив для задания 2.1
-        TrainingIntArray arr22 = new TrainingIntArray(arr); //создаем отдельные массивы для каждого задания
-        TrainingIntArray arr23 = new TrainingIntArray(arr); //важно, чтобы замеры времени были точными
-        TrainingIntArray arr24 = new TrainingIntArray(arr); //иметь одинаковые массивы для всех заданий
-        TrainingIntArray arr25 = new TrainingIntArray(arr);
-        TrainingIntArray arr26 = new TrainingIntArray(arr);
+        Duration d = new Duration(); //Объект для отсчета времени
+        TrainingIntArray[] arr = new TrainingIntArray[10]; //массив объектов для заполнения списков
+        initArrays(arr, 400, 100); //Заполняем массив инициализорованными объектами
 
+        System.out.println("******************************************************** Задание 3.1 ********************************************");
+        ArrayList<TrainingIntArray> arrList = task31(arr, d); //получаем список для задания 3.2
 
-        //Задание 2.1
-        arr21.randomizeArray(11);
-        System.out.println("********************************************************** Задание 2.1 ****************************************");
-        System.out.println(Arrays.toString(arr21.getArray()));
-        System.out.println("Время сортировки массива составило: " + arr21.arraySort());
-        System.out.println(Arrays.toString(arr21.getArray()));
+        System.out.println("******************************************************** Задание 3.2 ********************************************");
+        task32(arrList, d);
 
+        System.out.println("******************************************************** Задание 3.3 ********************************************");
+        task33();
 
-        //Задание 2.2
-        System.out.println("********************************************************** Задание 2.2 ****************************************");
-        System.out.println("Время линейного поиска составило: " + arr22.lineSearch(5));
-        arr22.arraySort(); //сортируем перед поиском
-        System.out.println("Время бинарного поиска составило: " + arr22.binarySearch(5));
+        System.out.println("******************************************************** Задание 3.4 ********************************************");
+        task34();
 
-        //Задание 2.3
-        System.out.println("********************************************************** Задание 2.3 ****************************************");
-        System.out.println("Время сортировки массива с помощью sort(): " + arr23.arraySort());
-
-        //Задание 2.4
-        System.out.println("********************************************************** Задание 2.4 ****************************************");
-        System.out.println("Время сортировки массива пузырьковым методом составило: " + arr24.bubbleSort());
-//
-//      Задание 2.5
-        System.out.println("********************************************************** Задание 2.5 ****************************************");
-        System.out.println("Время сортировки массива методом выбора: " + arr25.sortBySelectionMethod());
-
-        //Задание 2.6
-        System.out.println("********************************************************** Задание 2.6 ****************************************");
-        System.out.println("Время сортировки массива методом вставки: " + arr26.sortByInsertionMethod());
+        System.out.println("******************************************************** Задание 3.5 ********************************************");
+        task35(d);
 
     }
+    public static ArrayList<TrainingIntArray> task31 (TrainingIntArray[] arr, Duration d) {
 
+        ArrayList<TrainingIntArray> arrList = new ArrayList<>(); //Создаем и заполняем
+        LinkedList<TrainingIntArray> linkList = new LinkedList<>(); //создаем и заполняем
+        for (int i = 0; i < arr.length; i++) {
+            arrList.add(arr[i]);
+            linkList.add(arr[i]);
+        }
+
+        d.start();
+        TrainingIntArray[] trArr = arrList.toArray(arr);
+        System.out.println("Время на преобразование ArrayList в массив составляет: " + d.getStopTime());
+
+        d.start();
+        TrainingIntArray[] trArr2 = linkList.toArray(arr);
+        System.out.println("Время на преобразование LinkedList в массив составляет: " + d.getStopTime());
+
+        return arrList;
+    }
+    public static void task32(ArrayList<TrainingIntArray> arrList, Duration d) {
+        d.start();
+        TrainingIntArray some = arrList.get(0);
+        System.out.println("Время на получение элемента в ArrayList составляет: " + d.getStopTime());
+
+        d.start();
+        arrList.remove(0);
+        System.out.println("Время на удаление элемента в ArrayList составляет: " + d.getStopTime());
+
+        TrainingIntArray arr = new TrainingIntArray(100);
+        arr.randomizeArray(1000);
+        d.start();
+        arrList.add(0, arr);
+        System.out.println("Время на добавление элемента в ArrayList составляет: " + d.getStopTime());
+    }
+    public static void task33() {
+        SingleLinkedList<String> list = new SingleLinkedList<>(); //создаем простой односвязный список
+        list.insert(new String("first")); //добавляем элементы
+        list.insert(new String("second"));
+        System.out.println("Список до удаления элемента:");
+        list.display(); // список выводим в консоль
+        list.delete(); //удаляем элемент
+        System.out.println("Список после удаления элемента:");
+        list.display();
+
+    }
+    public static void task34() {
+        DoubleLinkedList<String> dlist = new DoubleLinkedList();
+        dlist.add("One");
+        dlist.add("Two");
+        dlist.add("Three");
+        dlist.add("Four");
+        dlist.add("Five");
+        dlist.Display();
+        System.out.println("Список после:");
+        dlist.remove("Four");
+        dlist.set(1, "Set");
+        dlist.addLast("Last");
+        dlist.Display();
+
+    }
+    public static void task35(Duration d) {
+        LinkedList<String> list = new LinkedList<>();
+        list.add("Первый");
+        list.add("Второй");
+        list.add("Третий");
+        list.add("Четвертый");
+        list.add("Пятый");
+        list.add("Шестой");
+
+        d.start();
+        Iterator<String> it = list.iterator();
+        while(it.hasNext()) {
+            System.out.println(it.next());
+            it.remove();
+        }
+        System.out.println("Проход всех элементов LinkedList составил: " + d.getStopTime());
+
+    }
+    public static void initArrays(TrainingIntArray[] arr, int size, int range) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = new TrainingIntArray(size);
+            arr[i].randomizeArray(range);
+        }
+
+    }
 }
