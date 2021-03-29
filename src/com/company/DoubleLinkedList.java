@@ -9,6 +9,9 @@ public class DoubleLinkedList<T> {
         lastElement = null;
         size = 0;
     }
+    public int getSize() {
+        return size;
+    }
     public DoubleLinkedListElement<T> getElement(int index){
         if(index>=size) {return null;}
         DoubleLinkedListElement current = firstElement;
@@ -61,7 +64,7 @@ public class DoubleLinkedList<T> {
         add(elem,0);
     }
     public void addLast(T elem) {
-        add(elem, size);
+        add(elem, size-1);
     }
     public void set(int index, T elem) {
         if(index<size) {
