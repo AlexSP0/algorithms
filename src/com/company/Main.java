@@ -1,123 +1,83 @@
 package com.company;
+//Задание 5.1
+//    Приведите пример использования рекурсии.
+//Задание 5.2
+//    Реализуйте простой пример бесконечной рекурсии и обычной рекурсии с условием для выхода.
+//Задание 5.3
+//    Приведите пример изображающий стек вызова и стек вызова с рекурсией.
+//Задание 5.4
+//    Реализуйте простой алгоритм использующий цикл и простой алгоритм использующий рекурсию.
+//    Оцените два алгоритма с помощью базового метода System.nanoTime().
+//Задание 5.5
+//    Реализуйте алгоритм двоичного рекурсивного поиска на основе массива из задания 2.1.
+//    Оцените алгоритм двоичного рекурсивного поиска с помощью базового метода System.nanoTime() и сравните с обычным двоичным поиском.
+//Задание 5.6
+//    На основе массива из задания 2.1 реализуйте алгоритм сортировки слиянием.
+//    Оцените алгоритм сортировки слиянием с помощью базового метода System.nanoTime() и сравните с сортировкой методом sort().
 
-//Задание 4.1
-//На основе данных объектного списка из задания 3.4 реализуйте простой стек и его базовые методы.
-//Оцените время выполнения операций с помощью базового метода System.nanoTime().
 
-//Задание 4.2
-//На основе данных объектного списка из задания 3.4 реализуйте простую очередь и его базовые методы.
-//Реализуйте вспомогательные методы.
-//Оцените время выполнения операций с помощью базового метода System.nanoTime().
 
-//Задание 4.3
-//На основе данных объектного списка из задания 3.4 реализуйте простой дек и его базовые методы.
-//Оцените время выполнения операций с помощью базового метода System.nanoTime().
-
-//Задание 4.4
-//Реализуйте приоритетную очередь на основе ссылочных типов данных, например, integer.
-//Оцените время выполнения операций с помощью базового метода System.nanoTime().
-
-//Задание 4.5
-//На основе данных из задания 4.1 и 4.2, реализуйте стек и очередь на базе связанного списка.
-//Оцените время выполнения операций с помощью базового метода System.nanoTime().
-
-import java.util.PriorityQueue;
+//Задание 5.1
+//Пример рекурсии: начисление банковских процентов, вычисление чисел Фибоначчи
 
 public class Main {
-    private static Duration d;
+
     public static void main(String[] args) {
-        d = new Duration();
-        //Задание 4.1
-        task41();
+        task52();
+        task53();
+        task54();
+        task55();
+        task56();
+    }
 
-        //Задание 4.2
-        task42();
+    public static void task52() {
+        //Бесконечная рекурсия
+        System.out.println("Пример бесконечной рекурсии");
+//        try {
+//            someCalculation(1);
+//        } catch (StackOverflowError q) {
+//            System.out.println("Переполнение стека вызовов!");
+//        }
+        //Рекурсия с условием для выхода
+        someCalculation2(1);
+    }
 
-        //Задание 4.3
-        task43();
+    public static void task53() {
+        //Обычный стек
+        StackExample st = new StackExample();
+        st.Run();
+        //Стек с рекурсией
+        st.getFactorial(10);
+    }
+    public static void task54() {
+        LoopRecursion lr = new LoopRecursion();
+        Duration d = new Duration();
+        lr.Run(d, 10);
+    }
+    public static void task55() {
+        TrainingIntArray array = new TrainingIntArray(100); //создаем объект
+        array.randomizeArray(10); // инициализируем его случайными числами
+        array.arraySort(); //сортируем
+        TrainingIntArrayRecursion recursionArray = new TrainingIntArrayRecursion(array); //создаем объект с такими же числами
+        System.out.println("Время выполнения обычного бинарного поиска составило: " + array.binarySearch(1));
+        System.out.println("Время выполнения рекурсивного бинарного поиска составило: " + recursionArray.startBinarySearchRecursion(1));
 
-        //Задание 4.4
-        task44();
+    }
+    public static void task56() {
+        TrainingIntArray array = new TrainingIntArray(100);
+        array.randomizeArray(100);
+        TrainingIntArrayRecursion rArr = new TrainingIntArrayRecursion(array);
 
-        //Задание 4.5
-        task45();
+        System.out.println("Время обычной сортировки массива составило: " + array.arraySort());
+        System.out.println("Время сортировки методом слияния составило: " + rArr.startMergeSort());
     }
-    public static void task41() {
-        System.out.println("**************************************************** Задание 4.1 ****************************************************");
-        MySimpleStack<String> stack = new MySimpleStack();
-        d.start();
-        stack.push("First");
-        System.out.println("Время добавления элемента в стек: " + d.getStopTime());
-        stack.push("Second");
-        stack.push("Third");
-        System.out.println("Посдений элемент стека: " + stack.peek());
-        while(!stack.isEmpty()) {
-            System.out.println("В стеке: " + stack.pop());
-        }
+    public static int someCalculation (int number) {
+        System.out.println(number);
+        return someCalculation(number*10);
     }
-    public static void task42() {
-        System.out.println("**************************************************** Задание 4.2 ****************************************************");
-        MyQueue<String> queue = new MyQueue<>();
-        d.start();
-        queue.push("First");
-        System.out.println("Время добавления элемента в очередь: " + d.getStopTime());
-        queue.push("Second");
-        queue.push("Third");
-        queue.push("Fourth");
-        System.out.println("Пробуем peek: " + queue.peek());
-        while(!queue.isEmpty()) {
-            System.out.println("В очереди: " + queue.pop());
-        }
+    public static int someCalculation2 (int number) {
+        System.out.println(number);
+        if(number>100000) return number; else return someCalculation2(number*10);
     }
-    public static void task43() {
-        System.out.println("**************************************************** Задание 4.3 ****************************************************");
-        MyDeque<String> deque = new MyDeque<>();
-        d.start();
-        deque.pushFront("First pushFront()");
-        System.out.println("Время добавления элемента в дек: " + d.getStopTime());
-        deque.pushFront("Second pushFront");
-        deque.pushBack("pushBack");
-        while(!deque.isEmpty()){
-            System.out.println("popFront: " + deque.popFront());
-        }
-    }
-    public static void task44() {
-        System.out.println("**************************************************** Задание 4.4 ****************************************************");
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>();
-        d.start();
-        pQueue.add(10);
-        System.out.println("Время добавления элемента в приоритетную очередь: " + d.getStopTime());
-        pQueue.add(20);
-        pQueue.add(30);
-        pQueue.add(40);
-        pQueue.add(50);
-        Integer buff;
-        do {
-            buff = pQueue.poll();
-            if(buff!=null) { System.out.println("Элемент очереди: " + buff.toString()); }
-        } while(buff!=null);
-    }
-    public static void task45() {
-        System.out.println("**************************************************** Задание 4.5 ****************************************************");
-        //Стек на связном списке
-        MyStackOnLinkedList<String> lStack = new MyStackOnLinkedList<>();
-        d.start();
-        lStack.push("First");
-        System.out.println("Время добавления элемента в стек на связном списке: " + d.getStopTime());
-        lStack.push("Second");
-        lStack.push("Third");
-        while(!lStack.isEmpty()) {
-            System.out.println("Элемент стека: " + lStack.pop());
-        }
-        //Очередь на связном списке
-        MyQueueOnLinkedList<String> lQueue = new MyQueueOnLinkedList<>();
-        d.start();
-        lQueue.push("First");
-        System.out.println("Время добавления элемента в очередь на связном списке: " + d.getStopTime());
-        lQueue.push("Second");
-        lQueue.push("Third");
-        while (!lQueue.isEmpty()) {
-            System.out.println("Элемент очереди: " + lQueue.pop());
-        }
-    }
+
 }
